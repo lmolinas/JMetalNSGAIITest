@@ -2,30 +2,30 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2017-01-30T23:31:10</date>
-  <millis>1485829870418</millis>
+  <date>2017-01-31T21:24:33</date>
+  <millis>1485908673944</millis>
   <sequence>0</sequence>
   <logger>jMetal</logger>
   <level>INFO</level>
   <class>py.una.pol.tesis.ia.mo.nsgaii.NSGAIIBinaryRunner</class>
   <method>main</method>
   <thread>1</thread>
-  <message>Total execution time: 24578ms</message>
+  <message>Total execution time: 27371ms</message>
 </record>
 <record>
-  <date>2017-01-30T23:31:10</date>
-  <millis>1485829870462</millis>
+  <date>2017-01-31T21:24:33</date>
+  <millis>1485908673991</millis>
   <sequence>1</sequence>
   <logger>jMetal</logger>
   <level>INFO</level>
   <class>org.uma.jmetal.runner.AbstractAlgorithmRunner</class>
   <method>printFinalSolutionSet</method>
   <thread>1</thread>
-  <message>Random seed: 1485829845822</message>
+  <message>Random seed: 1485908646541</message>
 </record>
 <record>
-  <date>2017-01-30T23:31:10</date>
-  <millis>1485829870463</millis>
+  <date>2017-01-31T21:24:33</date>
+  <millis>1485908673991</millis>
   <sequence>2</sequence>
   <logger>jMetal</logger>
   <level>INFO</level>
@@ -35,8 +35,8 @@
   <message>Objectives values have been written to file FUN.tsv</message>
 </record>
 <record>
-  <date>2017-01-30T23:31:10</date>
-  <millis>1485829870464</millis>
+  <date>2017-01-31T21:24:33</date>
+  <millis>1485908673991</millis>
   <sequence>3</sequence>
   <logger>jMetal</logger>
   <level>INFO</level>
