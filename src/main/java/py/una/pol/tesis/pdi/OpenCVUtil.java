@@ -222,8 +222,8 @@ public class OpenCVUtil {
             double mse = sse / (double) (I1.channels() * I1.total());
             double psnr = 10.0 * Math.log10((255 * 255) / mse);
             return psnr;
-        }
-    }
+        }    
+    } 
 
     public static double getMSSIM(Mat i1, Mat i2) {
         double C1 = 6.5025, C2 = 58.5225;
