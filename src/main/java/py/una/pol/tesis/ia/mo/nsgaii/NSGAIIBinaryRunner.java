@@ -15,15 +15,25 @@ import org.uma.jmetal.util.AlgorithmRunner;
 import org.uma.jmetal.util.JMetalLogger;
 
 import java.util.List;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.core.Size;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-import py.una.pol.tesis.ia.mo.problemas.SEProblemMO;
+import java.util.logging.Level;
+import py.una.pol.tesis.ia.mo.problemas.ProblemaSEBinarioMO;
 
+/**
+ * Class for configuring and running the NSGA-II algorithm (binary encoding)
+ *
+ * @author Antonio J. Nebro <antonio@lcc.uma.es>
+ */
 public class NSGAIIBinaryRunner extends AbstractAlgorithmRunner {
 
+    /**
+     * @param args Command line arguments.
+     * @throws org.uma.jmetal.util.JMetalException
+     * @throws java.io.IOException
+     * @throws SecurityException
+     * @throws ClassNotFoundException Invoking command: java
+     * org.uma.jmetal.runner.multiobjective.NSGAIIBinaryRunner problemName
+     * [referenceFront]
+     */
     public static void main(String[] args) throws
             Exception {
 
@@ -33,27 +43,20 @@ public class NSGAIIBinaryRunner extends AbstractAlgorithmRunner {
         MutationOperator<BinarySolution> mutation;
         SelectionOperator<List<BinarySolution>, BinarySolution> selection;
 
-        String referenceParetoFront = "";
-        if (args.length == 2) {
-            referenceParetoFront = args[1];
-        } else {
-            referenceParetoFront = "";
-        }
-
-        problem = new SEProblemMO(obtenerMatrizDeLaImagen(""));//agregar la imagen
-
+        problem = new ProblemaSEBinarioMO();
+        
         double crossoverProbability = 0.75;
         crossover = new SinglePointCrossover(crossoverProbability);
 
-        double mutationProbability = 0.025;//1.0 / problem.getNumberOfBits(0) ;
+        double mutationProbability = 0.025;
         mutation = new BitFlipMutation(mutationProbability);
 
         selection = new BinaryTournamentSelection<>();
 
         algorithm = new NSGAIIBuilder<>(problem, crossover, mutation)
                 .setSelectionOperator(selection)
-                .setMaxIterations(800*40)
-                .setPopulationSize(40)
+                .setMaxEvaluations(0)
+                .setPopulationSize(1)
                 .build();
 
         AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm)
@@ -62,22 +65,9 @@ public class NSGAIIBinaryRunner extends AbstractAlgorithmRunner {
         List<BinarySolution> population = algorithm.getResult();
         long computingTime = algorithmRunner.getComputingTime();
 
-        JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
+        JMetalLogger.logger.log(Level.INFO, "Total execution time: {0}ms", computingTime);
 
+        System.out.println("SOLUCION FINAL");
         printFinalSolutionSet(population);
-
-        if (!referenceParetoFront.equals("")) {
-            printQualityIndicators(population, referenceParetoFront);
-        }
-    }
-
-    private static Mat obtenerMatrizDeLaImagen(String fileName) {
-        Mat imagen = Imgcodecs.imread(fileName, Imgcodecs.IMREAD_GRAYSCALE);
-        imagen.reshape(256, 256);
-
-        Mat rz = new Mat();
-        Imgproc.resize(imagen, rz, new Size(256, 256));
-        rz.convertTo(rz, CvType.CV_8UC1);
-        return rz;
     }
 }
