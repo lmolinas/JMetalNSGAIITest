@@ -17,6 +17,7 @@ import org.uma.jmetal.util.JMetalLogger;
 import java.util.List;
 import java.util.logging.Level;
 import py.una.pol.tesis.ia.mo.problemas.ProblemaSEBinarioMO;
+import py.una.pol.tesis.pdi.ElementoEstructuranteBuilder;
 
 /**
  * Class for configuring and running the NSGA-II algorithm (binary encoding)
@@ -43,8 +44,11 @@ public class NSGAIIBinaryRunner extends AbstractAlgorithmRunner {
         MutationOperator<BinarySolution> mutation;
         SelectionOperator<List<BinarySolution>, BinarySolution> selection;
 
-        problem = new ProblemaSEBinarioMO();
-        
+        problem = new ProblemaSEBinarioMO(new ElementoEstructuranteBuilder()
+                .setCantidadFilas(7)
+                .setCantidadColumnas(7)
+                .setCantidadBits(1));
+
         double crossoverProbability = 0.75;
         crossover = new SinglePointCrossover(crossoverProbability);
 

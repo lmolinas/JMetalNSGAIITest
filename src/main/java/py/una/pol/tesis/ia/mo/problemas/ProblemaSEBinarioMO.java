@@ -20,16 +20,6 @@ public class ProblemaSEBinarioMO extends AbstractBinaryProblem {
     private int cont = 1;
 
     /**
-     * Creates a default instance of problem ZDT5 (11 decision variables)
-     */
-    public ProblemaSEBinarioMO() {
-        this(new ElementoEstructuranteBuilder()
-                .setCantidadFilas(3)
-                .setCantidadColumnas(3)
-                .setCantidadBits(1));
-    }
-
-    /**
      * Creates a instance of problem ZDT5
      *
      * @param eeBuilder Constructor de Elementos Estructurantes
@@ -75,14 +65,15 @@ public class ProblemaSEBinarioMO extends AbstractBinaryProblem {
                 );
             }
         }
-        ee.imprimir();
-        System.out.println("\n");
-        ee.imprimirQ1();
-        System.out.println("\nFIN\n");
 
         double[] f = new double[solution.getNumberOfObjectives()];
         f[0] = calcularSSIM(ee);
         f[1] = calcularContraste(ee);
+
+        ee.imprimir();
+        System.out.println("\n");
+        ee.imprimirQ1();
+        System.out.println("\nFIN\n");
     }
 
     private double calcularSSIM(ElementoEstructurante ee) {
