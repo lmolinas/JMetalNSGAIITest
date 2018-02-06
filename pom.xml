@@ -9,7 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <org.uma.jmetal.version>5.3</org.uma.jmetal.version>
+        <org.uma.jmetal.version>5.4</org.uma.jmetal.version>
     </properties>
     <dependencies>
         <dependency>
@@ -32,6 +32,11 @@
             <artifactId>jmetal-exec</artifactId>
             <version>${org.uma.jmetal.version}</version>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>nu.pattern</groupId>
+            <artifactId>opencv</artifactId>
+            <version>3.0.0</version>
         </dependency>
     </dependencies>
     <name>JMetalNSGAIITest</name>

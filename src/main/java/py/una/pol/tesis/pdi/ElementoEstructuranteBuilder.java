@@ -5,6 +5,9 @@
  */
 package py.una.pol.tesis.pdi;
 
+import org.uma.jmetal.solution.BinarySolution;
+import org.uma.jmetal.util.binarySet.BinarySet;
+
 /**
  *
  * @author Arturo
@@ -32,5 +35,20 @@ public class ElementoEstructuranteBuilder {
 
     public ElementoEstructurante build() {
         return new ElementoEstructurante(cantidadFilas, cantidadColumnas, cantidadBits);
+    }
+
+    public ElementoEstructurante build(BinarySolution solution) {
+        ElementoEstructurante ee = this.build();
+        for (int i = 0; i < solution.getNumberOfVariables(); i++) {
+            BinarySet variableValue = solution.getVariableValue(i);
+            for (int j = 0; j < variableValue.getBinarySetLength(); j++) {
+                ee.addBitQ1andExpandToQn(i / ee.cantidadColumnasQ1(),//fila
+                        i % ee.cantidadColumnasQ1(),//columna
+                        j,//profundidad
+                        variableValue.get(j) ? "1" : "0"//valor
+                );
+            }
+        }
+        return ee;
     }
 }

@@ -108,10 +108,12 @@ public class ElementoEstructurante {
     }
 
     public void imprimir() {
+        System.out.println("ELEMENTO ESTRUCTURANTE(EE)");
         imprimirGenerico(cantidadFilas, cantidadColumnas, cantidadBits);
     }
 
     public void imprimirQ1() {
+        System.out.println("1ER CUADRANTE DE EE");
         imprimirGenerico(this.cantidadFilasQ1(), cantidadColumnasQ1(), cantidadBits);
     }
 

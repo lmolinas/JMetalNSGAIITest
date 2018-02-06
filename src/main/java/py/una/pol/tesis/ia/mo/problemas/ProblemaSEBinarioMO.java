@@ -6,6 +6,7 @@ import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.binarySet.BinarySet;
 import py.una.pol.tesis.pdi.ElementoEstructurante;
 import py.una.pol.tesis.pdi.ElementoEstructuranteBuilder;
+import py.una.pol.tesis.pdi.Imagen;
 
 /**
  * Class representing problem ProblemaSEBinarioMO
@@ -15,16 +16,19 @@ public class ProblemaSEBinarioMO extends AbstractBinaryProblem {
 
     private static final int NRO_DE_OBJETIVOS = 2;
 
-    private ElementoEstructuranteBuilder eeBuilder;
-    private int[] bitsPerVariable;
+    private final Imagen imagen;
+    private final ElementoEstructuranteBuilder eeBuilder;
+    private final int[] bitsPerVariable;
     private int cont = 1;
 
     /**
      * Creates a instance of problem ZDT5
      *
+     * @param imagen imagen Original del problema
      * @param eeBuilder Constructor de Elementos Estructurantes
      */
-    public ProblemaSEBinarioMO(ElementoEstructuranteBuilder eeBuilder) {
+    public ProblemaSEBinarioMO(Imagen imagen, ElementoEstructuranteBuilder eeBuilder) {
+        this.imagen = imagen;
         this.eeBuilder = eeBuilder;
 
         setName(this.getClass().getSimpleName());
@@ -54,33 +58,14 @@ public class ProblemaSEBinarioMO extends AbstractBinaryProblem {
     @Override
     public void evaluate(BinarySolution solution) {
         System.out.println("SOLUTION: " + cont++);
-        ElementoEstructurante ee = eeBuilder.build();
-        for (int i = 0; i < solution.getNumberOfVariables(); i++) {
-            BinarySet variableValue = solution.getVariableValue(i);
-            for (int j = 0; j < variableValue.getBinarySetLength(); j++) {
-                ee.addBitQ1andExpandToQn(i / ee.cantidadColumnasQ1(),//fila
-                        i % ee.cantidadColumnasQ1(),//columna
-                        j,//profundidad
-                        variableValue.get(j) ? "1" : "0"//valor
-                );
-            }
-        }
-
-        double[] f = new double[solution.getNumberOfObjectives()];
-        f[0] = calcularSSIM(ee);
-        f[1] = calcularContraste(ee);
-
+        ElementoEstructurante ee = eeBuilder.build(solution);
+        Imagen imagenMejorada = this.imagen.mejorarImagen(ee);
+        solution.setObjective(0, imagenMejorada.getContraste());
+        solution.setObjective(1, this.imagen.calcularSSIM(imagenMejorada));
+        
         ee.imprimir();
         System.out.println("\n");
         ee.imprimirQ1();
         System.out.println("\nFIN\n");
-    }
-
-    private double calcularSSIM(ElementoEstructurante ee) {
-        return 1;
-    }
-
-    private double calcularContraste(ElementoEstructurante ee) {
-        return 1;
     }
 }
