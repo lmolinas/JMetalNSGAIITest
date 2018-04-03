@@ -20,6 +20,7 @@ import org.uma.jmetal.util.JMetalLogger;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.opencv.core.Core;
 import py.una.pol.tesis.ia.mo.problemas.ProblemaSEBinarioMO;
 import py.una.pol.tesis.pdi.ElementoEstructurante;
 import py.una.pol.tesis.pdi.ElementoEstructuranteBuilder;
@@ -31,14 +32,16 @@ import py.una.pol.tesis.pdi.Imagen;
  * @author Antonio J. Nebro <antonio@lcc.uma.es>
  */
 public class NSGAIIBinaryRunner extends AbstractAlgorithmRunner {
-    
-    private static final String IMAGE_DIR_IN= "db2/";
-    private static final String IMAGE_DIR_OUT= "result/";
+
+    private static final String IMAGE_DIR_IN = "db2/";
+    private static final String IMAGE_DIR_OUT = "result/";
 
     /**
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
         final File[] imageFiles = new File(IMAGE_DIR_IN).listFiles();
         List<String> mimetypes = new ArrayList<>();
         mimetypes.add("application/octet-stream");
@@ -88,10 +91,10 @@ public class NSGAIIBinaryRunner extends AbstractAlgorithmRunner {
         for (BinarySolution binarySolution : population) {
             ElementoEstructurante ee = eeBuilder.build(binarySolution);
             Imagen imagenMejorada = imagen.mejorarImagen(ee);
-            
+
             //ESCRIBIR LA IMAGEN RESULTANTE EN DISCO COMO RESULTADO
         }
-        
+
         long computingTime = algorithmRunner.getComputingTime();
         JMetalLogger.logger.log(Level.INFO, "Total execution time: {0}ms", computingTime);
 
