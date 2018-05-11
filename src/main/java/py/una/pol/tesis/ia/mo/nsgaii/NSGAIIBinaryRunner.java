@@ -41,7 +41,11 @@ public class NSGAIIBinaryRunner extends AbstractAlgorithmRunner {
      */
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-
+        
+        if(true){
+            System.out.println("PASOOOOOOOOOOOOOOOOOOOOOOOOO...............");
+            return;
+        }
         final File[] imageFiles = new File(IMAGE_DIR_IN).listFiles();
         List<String> mimetypes = new ArrayList<>();
         mimetypes.add("application/octet-stream");
